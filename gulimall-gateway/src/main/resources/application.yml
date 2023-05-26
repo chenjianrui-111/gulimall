@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        #Query A 参数有A就行，Query B,C 参数B的值为C即可  C可以是正则表达式
+        #实现针对于“http://localhost:88/hello?url=baidu”，转发到“https://www.baidu.com/hello”，
+        #针对于“http://localhost:88/hello?url=qq”的请求，转发到“https://www.qq.com/hello”
+        - id: baidu_router
+          uri: https://www.baidu.com   # 要转发的地址
+          predicates:
+            - Query=url,baidu
+        - id: qq_router
+          uri: https://www.qq.com
+          predicates:
+            - Query=url,qq
+
+        # 注意product_route 跟 admin_router的顺序，网关在进行断言时，会根据断言的先后顺序进行操作
+        # 所以精确断言需要写在模糊断言之前
+        - id: product_route
+          uri: lb://gulimall-product   # lb://服务名  进行负载均衡转发
+          predicates: # 对包含有/api/gulimallproduct的url请求进行路径重写
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: admin_router
+          uri: lb://renren-fast   # lb://服务名  进行负载均衡转发
+          predicates: # 我们约定，前端项目来的请求均带有api的前缀
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /renren-fast/$\{segment}  #路径重写，替换/api前缀，加上/renren-fast
+
+  application:
+    name: gulimall-gateway
+
+server:
+  port: 88
