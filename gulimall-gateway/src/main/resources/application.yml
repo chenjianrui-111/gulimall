@@ -26,6 +26,13 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*), /$\{segment}
 
+        - id: third_part_route
+          uri: lb://gulimall-third-part   # lb://服务名  进行负载均衡转发
+          predicates:
+            - Path=/api/thirdpart/**
+          filters:
+            - RewritePath=/api/thirdpart/(?<segment>.*),/$\{segment}
+
         - id: admin_router
           uri: lb://renren-fast   # lb://服务名  进行负载均衡转发
           predicates: # 我们约定，前端项目来的请求均带有api的前缀
