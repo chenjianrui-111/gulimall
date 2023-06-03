@@ -2,9 +2,12 @@ package com.atguigu.gulimall.product.service.impl;
 
 import com.atguigu.gulimall.common.utils.PageUtils;
 import com.atguigu.gulimall.common.utils.Query;
+import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,6 +19,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.atguigu.gulimall.product.dao.CategoryDao;
 import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
@@ -26,6 +30,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     // baseMapper就是一个CategoryDao的实现，通过泛型实现
     @Autowired
     CategoryDao categoryDao;
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -72,6 +79,34 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         // 我们一般不使用直接删除的方式，而是使用逻辑删除，即不是删除数据库中的记录，而是不显示，showStatus
         baseMapper.deleteBatchIds(asList);
 
+    }
+
+    @Override
+    public Long[] findCatelogPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        findParentPath(paths, catelogId);
+        return paths.toArray(new Long[0]);
+    }
+
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Transactional  // 记得在Mybatis配置类上开启事务
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        if (!StringUtils.isEmpty(category.getName())) {
+            categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+        }
+    }
+
+    private void findParentPath(List<Long> paths, Long catelogId) {
+        CategoryEntity category = this.getById(catelogId);
+        if (category.getParentCid() != 0) {  // 这里会触发自动拆箱
+            findParentPath(paths, category.getParentCid());
+        }
+        paths.add(catelogId);
     }
 
     /**

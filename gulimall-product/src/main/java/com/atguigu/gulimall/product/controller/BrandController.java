@@ -92,7 +92,10 @@ public class BrandController {
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
     public R update(@Validated(value =UpdateGroup.class)@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+//		brandService.updateById(brand);
+        // 为了保证数据库的性能，不使用连接查询，所以在品牌分类关联表中存储了冗余的数据
+        // 那么在更新品牌信息的时候，一定要考虑数据的一致性
+        brandService.updateDetail(brand);
         return R.ok();
     }
 
