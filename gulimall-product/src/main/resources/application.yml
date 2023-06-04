@@ -13,6 +13,8 @@ spring:
         endpoint: oss-cn-qingdao.aliyuncs.com
   application:
     name: gulimall-product
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 # 配置mybatis-plus
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml # 配置sql映射目录
@@ -23,7 +25,12 @@ mybatis-plus:
       # 我们数据库里面未删除是1，已删除是0，所以需要换一下，在@TableLogic指定也可以
       logic-delete-value: 0  # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 1  # 逻辑未删除值(默认为 0)
-
+#设置feign客户端超时时间(OpenFeign默认支持ribbon)
+ribbon:
+  #指的是建立连接后从服务器读取到可用资源所用的时间 ms
+  ReadTimeout: 5000
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间 ms
+  ConnectTimeout: 5000
 server:
   port: 10000
 

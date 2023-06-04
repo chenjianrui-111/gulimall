@@ -7,6 +7,8 @@ spring:
       oss:
         endpoint: oss-cn-qingdao.aliyuncs.com
         bucket: gulimall-chenjianrui
+      access-key: LTAI5tEaGoQ98K7wGVechS91
+      secret-key: I35C2Xf8yQc5VCqx4syxNiyyOscZbd
   application:
     name: gulimall-third-part
 server:

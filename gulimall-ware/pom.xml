@@ -20,6 +20,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.atguigu.gulimall</groupId>
             <artifactId>gulimall-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
