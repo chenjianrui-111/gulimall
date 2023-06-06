@@ -6,11 +6,7 @@ import java.util.Map;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.atguigu.gulimall.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.atguigu.gulimall.product.entity.SpuInfoEntity;
 import com.atguigu.gulimall.product.service.SpuInfoService;
@@ -31,6 +27,29 @@ import com.atguigu.gulimall.common.utils.R;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    /**
+     * 根据skuId查询spu的信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping(value = "/skuId/{skuId}")
+    public R getSpuInfoBySkuId(@PathVariable("skuId") Long skuId) {
+
+        SpuInfoEntity spuInfoEntity = spuInfoService.getSpuInfoBySkuId(skuId);
+
+        return R.ok().setData(spuInfoEntity);
+    }
+
+    //商品上架
+    ///product/spuinfo/{spuId}/up
+    @PostMapping(value = "/{spuId}/up")
+    public R spuUp(@PathVariable("spuId") Long spuId) {
+
+        spuInfoService.up(spuId);
+
+        return R.ok();
+    }
 
     /**
      * 列表

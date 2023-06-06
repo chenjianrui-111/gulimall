@@ -9,10 +9,10 @@ import java.util.List;
 
 
 
-//@FeignClient("gulimall-ware")
-//public interface WareFeignService {
-//
-//    @PostMapping(value = "/ware/waresku/hasStock")
-//    R getSkuHasStock(@RequestBody List<Long> skuIds);
-//
-//}
+@FeignClient("gulimall-ware")
+public interface WareFeignService {
+
+    @PostMapping(value = "/ware/waresku/hasStock")
+    R getSkuHasStock(@RequestBody List<Long> skuIds);
+
+}
