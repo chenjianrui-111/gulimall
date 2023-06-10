@@ -2,9 +2,13 @@ package com.atguigu.gulimall.product.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
+/**
+ * @author 15983
+ */
 @ConfigurationProperties(prefix = "gulimall.thread")
-// @Component
+//@Component
 @Data
 public class ThreadPoolConfigProperties {
 
