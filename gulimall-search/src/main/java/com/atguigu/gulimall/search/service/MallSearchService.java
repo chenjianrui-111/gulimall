@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.search.service;
 
+
 import com.atguigu.gulimall.search.vo.SearchParam;
 import com.atguigu.gulimall.search.vo.SearchResult;
 
@@ -7,8 +8,6 @@ import com.atguigu.gulimall.search.vo.SearchResult;
 /**
  * @Description:
  * @Created: with IntelliJ IDEA.
- * @author: 夏沫止水
- * @createTime: 2020-06-13 14:17
  **/
 public interface MallSearchService {
 
