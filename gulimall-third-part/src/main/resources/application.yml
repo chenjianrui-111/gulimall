@@ -9,6 +9,11 @@ spring:
         bucket: gulimall-chenjianrui
       access-key: LTAI5tEaGoQ98K7wGVechS91
       secret-key: I35C2Xf8yQc5VCqx4syxNiyyOscZbd
+      sms:
+        host: http://jnlzsms.market.alicloudapi.com
+        path: /lundroid/smsSend
+        appcode: 581ed3441519456ca7897d9a8b894cef
+        templateId: SMS_75800186
   application:
     name: gulimall-third-part
 server:
