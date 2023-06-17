@@ -8,8 +8,29 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: gulimall-order
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  rabbitmq:
+    host: 192.168.233.200
+    port: 5672
+    virtual-host: /
+    publisher-returns: true
+    publisher-confirms: true
+    template:
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+  redis:
+    host: 192.168.233.200
+    port: 6379
+  session:
+    store-type: redis
 # mybatis-plus
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
@@ -17,5 +38,17 @@ mybatis-plus:
     db-config:
       id-type: auto
 
+#开启feign对sentinel的支持
+feign:
+  sentinel:
+    enabled: true
+
 server:
   port: 9000
+
+#暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

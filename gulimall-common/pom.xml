@@ -20,6 +20,23 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
         <!--        mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -101,10 +118,10 @@
             <version>9.3.7.v20160115</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
 
         <!-- 引入链路追踪sleuth -->
         <!--        <dependency>-->
@@ -114,10 +131,10 @@
         <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-zipkin -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-zipkin</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.tomcat.embed</groupId>-->
 <!--            <artifactId>tomcat-embed-core</artifactId>-->

@@ -24,6 +24,7 @@ import static com.atguigu.gulimall.common.constant.AuthServerConstant.LOGIN_USER
 
 
 /**
+ * @author 15983
  * @Description: 处理社交登录请求
  * @Created: with IntelliJ IDEA.
  **/
@@ -42,8 +43,8 @@ public class OAuth2Controller {
     public String weibo(@RequestParam("code") String code, HttpSession session) throws Exception {
 
         Map<String, String> map = new HashMap<>(5);
-        map.put("client_id", "2077705774");
-        map.put("client_secret", "40af02bd1c7e435ba6a6e9cd3bf799fd");
+        map.put("client_id", "938097924");
+        map.put("client_secret", "6ef0b30318023d5c43a1d57622916372");
         map.put("grant_type", "authorization_code");
         map.put("redirect_uri", "http://auth.gulimall.com/oauth2.0/weibo/success");
         map.put("code", code);

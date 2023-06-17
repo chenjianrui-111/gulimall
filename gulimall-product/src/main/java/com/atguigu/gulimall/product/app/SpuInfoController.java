@@ -42,7 +42,7 @@ public class SpuInfoController {
     }
 
     //商品上架
-    ///product/spuinfo/{spuId}/up
+    // /product/spuinfo/{spuId}/up
     @PostMapping(value = "/{spuId}/up")
     public R spuUp(@PathVariable("spuId") Long spuId) {
 

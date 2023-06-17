@@ -13,6 +13,9 @@ import com.atguigu.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.atguigu.gulimall.ware.service.WareOrderTaskDetailService;
 
 
+/**
+ * @author 15983
+ */
 @Service("wareOrderTaskDetailService")
 public class WareOrderTaskDetailServiceImpl extends ServiceImpl<WareOrderTaskDetailDao, WareOrderTaskDetailEntity> implements WareOrderTaskDetailService {
 

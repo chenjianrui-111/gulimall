@@ -4,6 +4,9 @@ import lombok.Data;
 
 
 
+/**
+ * @author 15983
+ */
 @Data
 public class StockDetailTo {
 

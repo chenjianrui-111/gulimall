@@ -13,6 +13,9 @@ import com.atguigu.gulimall.order.entity.OrderItemEntity;
 import com.atguigu.gulimall.order.service.OrderItemService;
 
 
+/**
+ * @author 15983
+ */
 @Service("orderItemService")
 public class OrderItemServiceImpl extends ServiceImpl<OrderItemDao, OrderItemEntity> implements OrderItemService {
 
