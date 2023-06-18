@@ -440,6 +440,65 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     }
 
     /**
+     * 获取当前订单的支付信息
+     * @param orderSn
+     * @return
+     */
+    @Override
+    public PayVo getOrderPay(String orderSn) {
+
+        PayVo payVo = new PayVo();
+        OrderEntity orderInfo = this.getOrderByOrderSn(orderSn);
+
+        //保留两位小数点，向上取值
+        BigDecimal payAmount = orderInfo.getPayAmount().setScale(2, BigDecimal.ROUND_UP);
+        payVo.setTotal_amount(payAmount.toString());
+        payVo.setOut_trade_no(orderInfo.getOrderSn());
+
+        //查询订单项的数据
+        List<OrderItemEntity> orderItemInfo = orderItemService.list(
+                new QueryWrapper<OrderItemEntity>().eq("order_sn", orderSn));
+        OrderItemEntity orderItemEntity = orderItemInfo.get(0);
+        payVo.setBody(orderItemEntity.getSkuAttrsVals());
+
+        payVo.setSubject(orderItemEntity.getSkuName());
+
+        return payVo;
+    }
+
+    /**
+     * 查询当前用户所有订单数据
+     * @param params
+     * @return
+     */
+    @Override
+    public PageUtils queryPageWithItem(Map<String, Object> params) {
+
+        MemberResponseVo memberResponseVo = LoginUserInterceptor.loginUser.get();
+
+        IPage<OrderEntity> page = this.page(
+                new Query<OrderEntity>().getPage(params),
+                new QueryWrapper<OrderEntity>()
+                        .eq("member_id",memberResponseVo.getId()).orderByDesc("create_time")
+        );
+
+        //遍历所有订单集合
+        List<OrderEntity> orderEntityList = page.getRecords().stream().map(order -> {
+            //根据订单号查询订单项里的数据
+            List<OrderItemEntity> orderItemEntities = orderItemService.list(new QueryWrapper<OrderItemEntity>()
+                    .eq("order_sn", order.getOrderSn()));
+            order.setOrderItemEntityList(orderItemEntities);
+            return order;
+        }).collect(Collectors.toList());
+
+        page.setRecords(orderEntityList);
+
+        return new PageUtils(page);
+    }
+
+
+
+    /**
      * 保存订单所有数据
      * @param orderCreateTo
      */

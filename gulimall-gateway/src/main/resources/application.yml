@@ -79,6 +79,10 @@ spring:
           predicates:
             - Host=order.gulimall.com
 
+        - id: gulimall_member_route
+          uri: lb://gulimall-member   # lb://服务名  进行负载均衡转发
+          predicates:
+            - Host=member.gulimall.com
 
 
   application:
