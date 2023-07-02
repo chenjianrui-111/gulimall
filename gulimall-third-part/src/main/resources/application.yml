@@ -14,7 +14,22 @@ spring:
         path: /lundroid/smsSend
         appcode: 581ed3441519456ca7897d9a8b894cef
         templateId: SMS_75800186
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: gulimall-third-part
 server:
   port: 30000
+
+#开启对远程Feign支持
+feign:
+  sentinel:
+    enabled: true
+
+#暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

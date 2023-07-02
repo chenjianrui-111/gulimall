@@ -4,14 +4,21 @@ spring:
     password: root
     url: jdbc:mysql://192.168.233.200:3306/gulimall_wms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: gulimall-ware
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+
   rabbitmq:
     host: 192.168.233.200
     port: 5672
@@ -30,9 +37,22 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
 server:
   port: 11000
+
 logging:
   level:
     com.atguigu: debug
 
+#开启对远程Feign支持
+feign:
+  sentinel:
+    enabled: true
+
+#暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

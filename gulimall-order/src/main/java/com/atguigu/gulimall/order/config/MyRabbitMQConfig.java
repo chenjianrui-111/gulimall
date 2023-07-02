@@ -120,13 +120,13 @@ public class MyRabbitMQConfig {
      * @return
      */
     @Bean
-    public Queue orderSecKillOrrderQueue() {
+    public Queue orderSecKillOrderQueue() {
         Queue queue = new Queue("order.seckill.order.queue", true, false, false);
         return queue;
     }
 
     @Bean
-    public Binding orderSecKillOrrderQueueBinding() {
+    public Binding orderSecKillOrderQueueBinding() {
         //String destination, DestinationType destinationType, String exchange, String routingKey,
         // 			Map<String, Object> arguments
         Binding binding = new Binding(

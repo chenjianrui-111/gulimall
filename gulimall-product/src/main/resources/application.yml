@@ -11,6 +11,9 @@ spring:
     alicloud:
       oss:
         endpoint: oss-cn-qingdao.aliyuncs.com
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: gulimall-product
   jackson:
@@ -48,4 +51,10 @@ management:
       exposure:
         include: '*'
 
-
+#开启对远程Feign支持
+feign:
+  sentinel:
+    enabled: true
+logging:
+  level:
+    com.atguigu.gulimall: info

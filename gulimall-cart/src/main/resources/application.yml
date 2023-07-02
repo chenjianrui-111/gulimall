@@ -8,10 +8,10 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-#    sentinel:
-#      transport:
-#        #配置sentinel dashboard地址
-#        dashboard: 192.168.163.131:8080
+    sentinel:
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: 127.0.0.1:8080
   redis:
     port: 6379
     host: 192.168.233.200
@@ -19,9 +19,9 @@ spring:
     store-type: redis
 
 #开启feign对sentinel的支持
-#feign:
-#  sentinel:
-#    enabled: true
+feign:
+  sentinel:
+    enabled: true
 
 
 #配置线程池
